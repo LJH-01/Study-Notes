@@ -1,17 +1,11 @@
 # linux
 
 **卸载软件**
-
-# 删除软件及其配置文件
-
+### 删除软件及其配置文件
 sudo apt-get --purge remove <package>
-
-# 删除没用的依赖包
-
+### 删除没用的依赖包
 sudo apt-get autoremove <package>
-
-# 此时dpkg的列表中有“rc”状态的软件包，可以执行如下命令做最后清理：
-
+### 此时dpkg的列表中有“rc”状态的软件包，可以执行如下命令做最后清理：
 sudo dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P
 
 ---
@@ -60,7 +54,7 @@ ubuntu删除无用图标
 
 ---
 
-卸载IDEA
+### 卸载IDEA 
 
 * 删除主程序目录，也就是我们本文上面讲的解压出来的 `idea-IU-141.1532.4`。
 * 如果不想保留你的配置文件，还可以删除配置目录，目录所在位置：ls -a  ;     sudo rm -rf ./Idea...

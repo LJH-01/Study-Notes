@@ -1,31 +1,21 @@
-# Java基础-1-基础知识
+# java基础知识
 
 ## JDK和JRE
-
-2.JRE -- java runtime environment
-
-JRE指java运行环境。光有JVM还不能完成class的执行，因为在解释class的时候,JVM需要调用解释所需要的类库lib。在JDK的安装目录里你可以找到jre目录，里面有两个文件夹bin和lib,在这里可以认为bin里的就是jvm，lib中则是jvm工作所需要的类库，而jvm和 lib和起来就称为jre。所以，在你写完java程序编译成.class之后，你可以把这个.class文件和jre一起打包发给朋友，这样你的朋友就可以运行你写程序了。（jre里有运行.class的java.exe）
-
-3.JDK -- java development kit
-
-JDK是java开发工具包.安装目录下面有六个文件夹,一个src类库源码压缩包和其他几个声明文件。其中，真正在运行java时起作用的是以下四个文件夹：bin、include、lib、jre。现在我们可以看出这样一个关系，JDK包含JRE，而JRE包含JVM。bin:最主要的是编译器(javac.exe)include:java和JVM交互用的头文件lib：类库jre:java运行环境（注意：这里的bin、lib文件夹和jre里的bin、lib是不同的）总的来说JDK是用于java程序的开发,而jre则是只能运行class而没有编译的功能。
-
+1. JRE -- _java_ runtime environment
+JRE指java运行环境。光有JVM还不能完成class的执行，因为在解释class的时候,JVM需要调用解释所需要的类库lib。
+在JDK的安装目录里你可以找到jre目录，里面有两个文件夹bin和lib,在这里可以认为bin里的就是jvm，lib中则是jvm工作所需要的类库，而jvm和 lib和起来就称为jre。所以，在你写完java程序编译成.class之后，你可以把这个.class文件和jre一起打包发给朋友，这样你的朋友就可以运行你写程序了。（jre里有运行.class的java.exe）
+2. JDK -- java development kit
+JDK是java开发工具包.安装目录下面有六个文件夹,一个src类库源码压缩包和其他几个声明文件。其中，真正在运行java时起作用的是以下四个文件夹：bin、include、lib、jre。现在我们可以看出这样一个关系，JDK包含JRE，而JRE包含JVM。bin: 最主要的是编译器(javac.exe)include:java和JVM交互用的头文件lib：类库jre:java运行环境（注意：这里的bin、lib文件夹和jre里的bin、lib是不同的）总的来说JDK是用于java程序的开发,而jre则是只能运行class而没有编译的功能。
 eclipse、idea等其他IDE有自己的编译器而不是用JDK bin目录中自带的，所以在安装时他们只要求选中jre路径就ok。
 
----
-
-Comparable和Comparator接口的作用以及它们的区别。
-
+## Comparable和Comparator接口的作用以及它们的区别。
 Comparable:表示可被排序的，实现了这个接口，这个类的对象就会自动拥有了可被排序的能力。这个排序被称为类的自然顺序。 这个类的对象的列表可以被Collections.sort和Arrays.sort来执行排序。同时这个类的实例具备作为sorted map的key和sorted set的元素的资格。
-
+```
 public interface Comparable<T> {
-
-    public int compareTo(T o);
-
+   public int compareTo(T o);
 }
-
+```
 该接口只有一个抽象方法compareTo，这个方法主要就是为了定义我们的类所要排序的方式。compareTo方法用于比较当前元素a与指定元素b，结果为int值，如果a > b，int>0；如果a=b，int=0；如果a<b，int<0。
-
 Comparator:中文译为比较器，它可以作为一个参数传递到Collections.sort和Arrays.sort方法来指定某个类对象的排序方式。同时它也能为sorted set和sorted map指定排序方式。 推荐实现的比较器类同时实现java.io.Serializable接口，以拥有序列化能力，因为它可能会被用作序列化的数据结构（TreeSet、TreeMap）的排序方法。
 
 比较：
@@ -46,7 +36,7 @@ Java和JavaScript的比较
 
 ---
 
-Array和ArrayList
+**Array和ArrayList**
 
 1.大小长度
 
