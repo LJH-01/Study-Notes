@@ -1,14 +1,10 @@
-# E4-强化学习-1:Q-Learning
+# Q-Learning
 
-`强化学习`
-
-Q-Learning 决策
-
----
+## Q-Learning 决策
 
 有一张Q表：包含状态S和行为a和q值，表示状态s下采取a行为获得q值
 
-Q-Learning更新
+## Q-Learning更新
 
 ---
 
@@ -16,7 +12,7 @@ Q-Learning更新
 
 首先在S1 根据Q表的值采取了一个动作Q（S1，a），假设为S2。
 
-计算Q现实==Max：Q（S2，a）*衰减值（γ）+R（在S2获得的奖励）---即下一步的最大值乘以衰减值，加上在S2获得的奖励值R。
+计算Q现实 == Max：Q（S2，a）*衰减值（γ）+R（在S2获得的奖励）即下一步的最大值乘以衰减值，加上在S2获得的奖励值R。
 
 Q估计就是Q（S1，a）。
 
@@ -24,9 +20,23 @@ Q估计就是Q（S1，a）。
 
 当这一更新完成后才开始S2的决策。
 
+```
+Initialize Q arbitrarily // 随机初始化Q表
+Repeat (for each episode): // 每一次游戏，从开始到结束是一个episode
+    Initialize S // S为初始位置的状态
+    Repeat (for each step of episode):
+        Choose a from s using policy derived from Q(ε-greedy) //根据当前Q和位置S，使用一种策略，得到动作A，这个策略可以是ε-greedy等
+        Take action a, observe r // 做了动作A，到达新的位置S'，并获得奖励R，奖励可以是1，50或者-1000
+        Q(S,A) ← Q(S,A) + α*[R + γ*maxQ(S',a)-Q(s,a)] //在Q中更新S
+        S ← S'
+    until S is terminal //即到游戏结束为止
+```
+
+
+
 ![9e87bc490400e4356dd7a24fa656544c.png](image/9e87bc490400e4356dd7a24fa656544c.png)
 
-# γ值的含意
+#### γ值的含意
 
 ---
 
