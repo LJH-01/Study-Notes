@@ -1,6 +1,4 @@
-# 使用基于速度的人群碰撞避免模拟（Simulating Human Collision Avoidance Using a）
-
----
+# 使用基于速度的人群碰撞避免模拟
 
 1.摘要：
 
