@@ -1,2 +1,0 @@
-# Decentralized Non-communicating 
-
