@@ -94,3 +94,72 @@ kill 命令终止进程的命令格式： `kill PID号` 如果无法响应终止
 `windows: -javaagent:C:\Users\neo\JetbrainsCrack.jar`
 
 9. 重启idea  进入后 点击：`Help" -> “Register”，选择 License server 方式，地址填入：`http://jetbrains-license-server` （应该会自动填上） 看到 Licensed to 用户名，即激活成功
+
+## 快捷键
+
+`ctrl`+`print` 					 复制图片到剪贴板
+
+`ctrl`+`alt`+`print` 			复制活动窗口截图到剪贴板
+
+`ctrl`+`shift`+`print` 		 复制选区截图剪贴板
+
+--------------------
+
+`print`								 将屏幕截图放到文件夹
+
+`alt`+`print`						将窗口截图放到文件夹
+
+`shift`+`print`					 将选区截图保存到文件夹
+
+--------------------
+
+`super`+`上`					    窗口最大化
+
+`super`+`下`						窗口恢复非最大化
+
+`super`+`左`						窗口靠左
+
+`super`+`右`						窗口靠右
+
+-------------
+
+`super`+`H`						隐藏窗口
+
+`super`+`D`						最小化所有窗口并显示桌面，再按恢复
+
+`super`+`M`						切到通知栏
+
+`alt`+`F2`							控制台
+
+`ctrl`+`Q`/`W`					关闭窗口。
+
+-----
+
+### jet-brain 
+
+账号：tieqinrui@stu.zzu.edu.cn
+
+密码 A3bKsRJPeKJBDh3
+
+![2019-12-30 15-19-29 的屏幕截图](/home/tqr/Study-Notes/D-学习笔记/image/2019-12-30 15-19-29 的屏幕截图.png)
+
+------------
+
+### 安装Pycharm无图标,super也无显示 
+
+在 /usr/share/applictions/ 下创建 Pycharm.desktop 
+
+`sudo vim /usr/share/applications/Pycharm.desktop`
+
+```python
+[Desktop Entry]
+Type=Application
+Name=Pycharm 							#name可以改
+GenericName=Pycharm3
+Comment=Pycharm3:The Python IDE
+Exec="/opt/pycharm-professional-2019.3.1/pycharm-2019.3.1/bin/pycharm.sh"   # 安装路径
+Icon=/opt/pycharm-professional-2019.3.1/pycharm-2019.3.1/bin/pycharm.png
+Terminal=pycharm
+Categories=Pycharm
+```
+
