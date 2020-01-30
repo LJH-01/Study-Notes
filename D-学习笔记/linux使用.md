@@ -8,11 +8,20 @@
 
 **删除没用的依赖包**
 
-`sudo apt-get autoremove <package>`
+`sudo apt-get autoremove `
+
+`sudo apt-get autoclean `------清理旧版本的软件缓存
+`sudo apt-get clean`------清理所有软件缓存
 
 **此时dpkg的列表中有“rc”状态的软件包，可以执行如下命令做最后清理：**
 
 `sudo dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P`
+
+```
+
+
+sudo apt-get autoremove--删除系统不再使用的孤立软件
+```
 
 ---
 
@@ -145,7 +154,7 @@ kill 命令终止进程的命令格式： `kill PID号` 如果无法响应终止
 
 ------------
 
-### 安装Pycharm无图标,super也无显示 
+### 安装Pycharm无图标,`super`+`A`无显示 
 
 在 /usr/share/applictions/ 下创建 Pycharm.desktop 
 
@@ -163,3 +172,4 @@ Terminal=pycharm
 Categories=Pycharm
 ```
 
+将usr/share/applications/Pycharm.desktop 复制到桌面下即可作为桌面快捷方式。

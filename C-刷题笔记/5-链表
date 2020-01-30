@@ -3,11 +3,11 @@
 ## 链表题目特点  
 > 链表的题目一般不是很难，关键考察代码实现能力，在做题的时候尤其要主义的是边界条件。   
 1. 头节点为空
-```
+```java
 if(head==null) return head; 
 ```
 2. 链表的反转操作。 
-```
+```java
 ListNode pre = new ListNode(0);
 ListNode cur = head;
 ListNode nxt = null;
@@ -19,7 +19,7 @@ while(cur!=null){
 }
 ```
 3.复杂链表复制   
-```
+```java
 三个步骤：
 1. 将每一个节点复制到紧跟在它自己身后
 2. 修改每个新复制的节点的乱序指针。
