@@ -173,3 +173,13 @@ Categories=Pycharm
 ```
 
 将usr/share/applications/Pycharm.desktop 复制到桌面下即可作为桌面快捷方式。
+
+## 解压zip压缩包产生中文乱码
+
+用命令行解压制定编码字符集 unzip -O GBK xxxx.zip。
+
+## 创建桌面快捷方式
+
+## 权限控制
+
+https://www.cnblogs.com/lhm166/articles/6605059.html
