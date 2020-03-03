@@ -37,6 +37,34 @@ sudo apt-get autoremove--删除系统不再使用的孤立软件
 
 ---
 
+# unbutu更新软件
+
+更新软件源
+
+apt-get update
+更新升级所有软件
+
+apt-get upgrade
+更新某个软件
+
+apt-get upgrade 名
+列出可更新的软件
+
+apt list --upgradable
+升级系统版本(Ubuntu的升级)
+
+apt-get dist-upgrade
+安装一个软件包
+
+apt-get install package_name
+删除一个软件包
+
+apt-get remove package
+列举其他apt-get 命令
+
+apt-get help
+---------------------
+
 ## wps中文输入光标不跟随解决方案
 
 [https://www.bbsmax.com/A/MAzAn7ZOJ9/](https://www.bbsmax.com/A/MAzAn7ZOJ9/)
