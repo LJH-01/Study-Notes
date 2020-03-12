@@ -4,7 +4,9 @@
 
 1. Redis是一款基于键值对的NoSQL数据库，它的值支持多种数据结构：
 
-	字符串（String） 哈希（hashs）列表（lists）集合（sets）有序集合（sorted sets）等。
+  1.字符串（String） 2.哈希（hashs）3.列表（lists）4.集合（sets）5.有序集合（sorted sets）等。
+
+  ![https://img-blog.csdn.net/20180922145939330?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjQ3MjA0OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70](/home/tqr/Study-Notes/社区开发/image/20180922145939330.png)
 
 2. Redis将所有的数据都存放在内存中，所以他的读写性能十分惊人，同时，Redis还可以将内存中的数据以快照或日志的形式保存到硬盘上，以保证数据的安全性
 

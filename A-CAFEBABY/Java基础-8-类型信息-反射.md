@@ -10,7 +10,7 @@ Java反射
 
 2. Class 类的实例表示正在运行的 Java 应用程序中的类和接口。也就是jvm中有多个实例的每个类都有该Class对象。（包括基本数据类型）一个类不管有多少实例，一个类只有一个Class对象。
 
-3. Class 没有公共构造方法。Class 对象是在加载类时由 Java 虚拟机以及通过调用类加载器中的defineClass 方法自动构造的。也就是这不需要我们自己去处理创建，JVM已经帮我们创建好了。
+3. Class 没有公共构造方法。Class 对象是在加载类时由 Java 虚拟机通过调用类加载器中的defineClass 方法自动构造的。也就是这不需要我们自己去处理创建，JVM已经帮我们创建好了。
 
 类加载过程：
 
@@ -63,3 +63,53 @@ getConstructor(Class<?>... parameterTypes)
 - 方法2：通过类对象的getConstructor()或getDeclaredConstructor()方法获得构造器（Constructor）对象并调用其newInstance()方法创建对象，例如：String.class.getConstructor(String.class).newInstance("Hello");
 
 ---
+
+```java
+package leetcode;
+
+/**
+ * TQR 2020/3/5
+ */
+public class TestRegex {
+
+    public static void main(String[] args) {
+        Student s = new Student();
+        Class sClass1 = s.getClass();
+        Class sClass2 = Student.class;
+        Class sClass3 = null;
+        try {
+            sClass3 = Class.forName("leetcode.Student");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println(sClass1 == sClass2);
+        System.out.println(sClass2 == sClass3);
+
+        try {
+            assert sClass3 != null;
+            Student s1= (Student) sClass3.newInstance();
+            s1.func("hello world");
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+}
+class Student{
+    public Student(){
+        System.out.println("构造方法执行");
+    }
+    public void func (String str){
+        System.out.println("成员方法调用"+str);
+    }
+}
+/*
+构造方法执行
+true
+true
+构造方法执行
+成员方法调用hello world
+*/
+```
+

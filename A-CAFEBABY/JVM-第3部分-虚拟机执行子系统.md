@@ -376,53 +376,39 @@ public class NotInitialization{
 
 双亲委派模型对于保证Java程序的稳定运作很重要，但它的实现却非常简单，实现双亲委派的代码都集中在java.lang.ClassLoader的loadClass（）方法之中，如代码清单所示，逻辑清晰易懂：先检查是否已经被加载过，若没有加载则调用父加载器的loadClass（）方法，若父加载器为空则默认使用启动类加载器作为父加载器。如果父类加载失败，抛出ClassNotFoundException异常后，再调用自己的findClass（）方法进行加载。
 
-protected synchronized Class＜?＞loadClass（String name,boolean resolve）throws ClassNotFoundException{
+```java
+package demo;
 
-        //首先，检查请求的类是否已经被加载过了
-
-        Class c=findLoadedClass（name）；
-
-        if（c==null）{
-
-        try{
-
-        if（parent！=null）{
-
-        c=parent.loadClass（name,false）；
-
-        }else{
-
-        c=findBootstrapClassOrNull（name）；
-
-        }
-
-        }catch（ClassNotFoundException e）{
-
-        //如果父类加载器抛出ClassNotFoundException
-
-        //说明父类加载器无法完成加载请求
-
-        }if（c==null）{
-
-//在父类加载器无法加载的时候
-
-//再调用本身的findClass方法来进行类加载
-
-        c=findClass（name）；
-
-        }
-
-        }
-
-        if（resolve）{
-
-        resolveClass（c）；
-
-        }
-
-        return c；
-
-        }
+/**
+ * TQR 2020/3/6
+ */
+public class loadClass {
+    protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
+        //首先，检查请求的类是否已经被加载过了
+        Class c = findLoadedClass(name);
+        if (c == null) {
+            try {
+                if (parent != null) {
+                    c = parent.loadClass(name, false)
+                } else {
+                    c = findBootstrapClassOrNull(name);
+                }
+            } catch (ClassNotFoundException e) {
+                //如果父类加载器抛出ClassNotFoundException
+                //说明父类加载器无法完成加载请求
+            } if (c == null) {
+                //在父类加载器无法加载的时候
+                //再调用本身的findClass方法来进行类加载
+                c = findClass(name);
+            }
+        }
+        if (resolve) {
+            resolveClass(c);
+        }
+        return c;
+    }
+}
+```
 
 7.4.3　破坏双亲委派模型
 
@@ -840,7 +826,7 @@ Java线程调度 使用的是抢占式调度
 
 ![Java内存结构详.jpg](image/Java内存结构详.jpg)
 
-堆区:存放对象实例，堆分为：新生代和老年代，新生代又可以分为 Eden空间、From Survivor空间、ToSurvivor空间等。当不能完成实例分配且无法再扩展时，将会抛出OutOfMemoryError异常。
+堆区:存放对象实例，堆分为：新生代和老年代，新生代又可以分为 Eden空间、From Survivor空间、ToSurvivor空间等。当不能完成实例分配且无法再扩展时，将会抛出OutOfMemoryError异常。--------设定两块survivor区域是为了更好地使用复制算法，不然又会产生内存碎片。
 
 方法区：存储已被虚拟机加载的类的信息、常量、静态变量、即时编译器编译后的代码等数据。无法满足内存分配时，OutOfMemoryError异常。
 

@@ -43,3 +43,42 @@ Spring是什么？ 企业级 Java 应用程序开发框架
 * **Messaging** 模块为 STOMP（Simple (or Streaming) Text Orientated Messaging Protocol，简单(流)文本定向消息协议） 提供了支持作为在应用程序中 WebSocket 子协议的使用。
 * 测试模块支持对具有 JUnit 或 TestNG 框架的 Spring 组件的测试。
 
+### Spring用到的设计模式
+
+https://www.cnblogs.com/kyoner/p/10949246.html
+
+1. 工厂设计模式---Spring使用工厂模式可以通过 `BeanFactory` 或 `ApplicationContext` 创建 bean 对象。
+2. 单例模式---Spring中Bean的默认作用域就是单例的。
+3. 代理模式---生成一个被代理对象的子类来作为代理。Spring AOP就是基于动态代理的JDK动态代理java提供动态代理技术，可以在运行时创建接口的代理实例。Spring AOP默认采用此种方式，在接口的代理实例中织入代码。CGLib动态代理采用底层的字节码技术，在运行时创建子类代理实例当目标对象不存在接口时，Sping AOP 会采用此种方式，在子类实例中织入代码。
+4. 模板方法模式-- 它定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。简单来说就是定义一个抽象类，然后在子类中去实现和覆盖。Template 结尾的对数据库操作的类。
+5. 适配器模式----适配器模式(Adapter Pattern) 将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)Spring中前端控制器适配Controller。
+
+-----------
+
+BeanFactory 和FactroyBean----------项目中见 QuartzConfig.class---对Quartz进行配置时使用过。
+
+BeanFactory 是IOC最基本的容器的核心接口，负责生产和管理bean。
+
+FactoryBean也是一个接口，实现这种接口的bean变成了一种特殊的bean，spring中有两种bean，普通bean和FactoryBean，，实现了 `FactoryBean` 接口的类有能力改变 bean，`FactoryBean` 希望你实现了它之后返回一些内容，Spring 会按照这些内容去注册 bean。
+
+```java
+// BeanFactory 是容器的顶层接口
+// FactoryBean 可简化bean的实例化过程。
+// 1。通过JobDetailFactoryBean，封装了Bean的实例化过程。
+// 2。将FactoryBean装配到Spring容器里
+// 3。将FactoryBean注入给其他的bean，
+// 4。其他的Bean获得到的是，FactoryBean所管理的对象实例
+@Bean
+    public JobDetailFactoryBean PostScoreRefreshJobDetail() {
+        JobDetailFactoryBean factoryBean = new JobDetailFactoryBean();
+        factoryBean.setJobClass(PostScoreRefreshJob.class);
+        factoryBean.setName("postScoreRefreshJob");
+        factoryBean.setGroup("communityJobGroup");
+        factoryBean.setDurability(true); // 这个任务是持久保存对，即便触发器没了，也存着
+        factoryBean.setRequestsRecovery(true);
+
+        return factoryBean;
+    }
+```
+
+

@@ -2,19 +2,17 @@
 
 synchronized 和lock
 
-无论synchronized关键字加在方法上还是对象上，它取得的锁都是对象，而不是把一段代码或函数当作锁――而且非同步方法很可能还会被其他线程的对象访问。
-
-每个对象只有一个锁（lock）与之相关联。
+Synchronized 关键字可以加在实例方法，静态方法，代码块上。无论加在方法上还是对象上，它取得的锁都是对象。每个对象只有一个锁（lock）与之相关联。
 
 [https://www.jianshu.com/p/20abba522545](https://www.jianshu.com/p/20abba522545)
 
-synchronized方法：每个synchronized 方法都必须获得调用该方法的类实例的锁方能执行，否则所属线程阻塞， 当一个线程访问object的一个synchronized同步方法时，其他线程对object中所有其它synchronized同步方法的的访问将被阻塞。 但是其他线程还是可以访问该实例对象的其他非synchronized方法
+synchronized方法：每个synchronized 方法都必须获得调用该方法的类实例的锁方能执行，否则所属线程阻塞， 当一个线程访问object的一个synchronized同步方法时，其他线程对object中所有其它synchronized同步方法的的访问将被阻塞。 但是其他线程还是可以访问该实例对象的其他非synchronized方法。
 
 synchronized 修饰静态方法：静态方法属于类， 所以如果用synchronized修饰静态方法，那么它在所有类对象中都是同步的。
 
 synchronized 代码块：又分为三种
 
-* synchronized(this)类似于前面的synchronized修饰非静态方法，锁都在当前对象，只限制当前对象对该代码块的同步。-------------
+* synchronized(this)类似于前面的synchronized修饰非静态方法，锁都在当前对象，只限制当前对象对该代码块的同步。
 
 * synchronized（className.class）类似于前面的synchronized修饰静态方法，锁在类而不在类对象，只要是className类对象访问该代码块都被要求同步。
 
@@ -100,7 +98,7 @@ volatile和synchronized
 
 synchronized关键字是方式多个线程同时执行一段代码，这样会影响效率，volatile关键字在某些情况下性能会优于synchronized，但是它不能替代synchronized 因为volatile无法保证操作的原子性，使用volatile需要满足
 
-1：对变量的写操作不依赖于当前值。
+1：对变量的写操作不依赖于当前值。----自增操作，
 
 2：该变量没有包含在具有其他变量的不变式中。（要保证操作是原子性操作）
 
@@ -306,226 +304,68 @@ LongAdder确实用了很多心思减少并发量，并且，每一步都是在�
 
 代码：
 
-|1
-
-2
-
-3
-
-4
-
-5
-
-6
-
-7
-
-8
-
-9
-
-10
-
-11
-
-12
-
-13
-
-14
-
-15
-
-16
-
-17
-
-18
-
-19
-
-20
-
-21
-
-22
-
-23
-
-24
-
-25
-|package com.thread;
+```java 
+package com.thread;
 
 public class FirstThreadTest extends Thread{
-
     int i = 0;
-
     //重写run方法，run方法的方法体就是现场执行体
-
-    public void run()
-
-    {
-
+    public void run(){
         for(;i<100;i++){
-
             System.out.println(getName()+"  "+i);
-
         }
-
     }
 
-    public static void main(String[] args)
-
-    {
-
-        for(int i = 0;i< 100;i++)
-
-        {
-
+    public static void main(String[] args) {
+        for(int i = 0;i< 100;i++) {
             System.out.println(Thread.currentThread().getName()+"  : "+i);
-
-            if(i==20)
-
-            {
-
+            if(i==20){
                 new FirstThreadTest().start();
-
                 new FirstThreadTest().start();
-
             }
-
         }
-
     }
-
 }
-|
-|
-
-                                         |
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+```
 
 上述代码中Thread.currentThread()方法返回当前正在执行的线程对象。GetName()方法返回调用该方法的线程的名字。
 
 二、通过Runnable接口创建线程类
 
-（1）定义runnable接口的实现类，并重写该接口的run()方法，该run()方法的方法体同样是该线程的线程执行体。
+1）定义runnable接口的实现类，并重写该接口的run()方法，该run()方法的方法体同样是该线程的线程执行体。
 
-（2）创建 Runnable实现类的实例，并依此实例作为Thread的target来创建Thread对象，该Thread对象才是真正的线程对象。
+2）创建 Runnable实现类的实例，并依此实例作为Thread的target来创建Thread对象，该Thread对象才是真正的线程对象。
 
-（3）调用线程对象的start()方法来启动该线程。
+3）调用线程对象的start()方法来启动该线程。
 
 代码：
 
-|1
+```java 
+package com.thread;
 
-2
-
-3
-
-4
-
-5
-
-6
-
-7
-
-8
-
-9
-
-10
-
-11
-
-12
-
-13
-
-14
-
-15
-
-16
-
-17
-
-18
-
-19
-
-20
-
-21
-
-22
-
-23
-
-24
-
-25
-
-26
-
-27
-
-28
-
-29
-|package com.thread;
-
-public class RunnableThreadTest implements Runnable
-
-{
-
+public class RunnableThreadTest implements Runnable{
     private int i;
-
-    public void run()
-
-    {
-
-        for(i = 0;i <100;i++)
-
-        {
-
+    public void run(){
+        for(i = 0;i <100;i++) {
             System.out.println(Thread.currentThread().getName()+" "+i);
-
         }
-
     }
 
     public static void main(String[] args)
-
     {
-
         for(int i = 0;i < 100;i++)
-
         {
-
             System.out.println(Thread.currentThread().getName()+" "+i);
-
             if(i==20)
-
             {
-
                 RunnableThreadTest rtt = new RunnableThreadTest();
-
                 new Thread(rtt,"新线程1").start();
-
                 new Thread(rtt,"新线程2").start();
-
             }
-
         }
-
     }
-
 }
-|
+```
 
 三、通过Callable和Future创建线程
 
@@ -539,175 +379,42 @@ public class RunnableThreadTest implements Runnable
 
 代码：
 
-|1
-
-2
-
-3
-
-4
-
-5
-
-6
-
-7
-
-8
-
-9
-
-10
-
-11
-
-12
-
-13
-
-14
-
-15
-
-16
-
-17
-
-18
-
-19
-
-20
-
-21
-
-22
-
-23
-
-24
-
-25
-
-26
-
-27
-
-28
-
-29
-
-30
-
-31
-
-32
-
-33
-
-34
-
-35
-
-36
-
-37
-
-38
-
-39
-
-40
-
-41
-
-42
-
-43
-
-44
-
-45
-|package com.thread;
+```java
+package com.thread;
 
 import java.util.concurrent.Callable;
-
 import java.util.concurrent.ExecutionException;
-
 import java.util.concurrent.FutureTask;
 
-public class CallableThreadTest implements Callable<Integer>
-
-{
-
-    public static void main(String[] args)
-
-    {
-
+public class CallableThreadTest implements Callable<Integer>{
+    public static void main(String[] args){
         CallableThreadTest ctt = new CallableThreadTest();
-
         FutureTask<Integer> ft = new FutureTask<>(ctt);
-
-        for(int i = 0;i < 100;i++)
-
-        {
-
+        for(int i = 0;i < 100;i++){
             System.out.println(Thread.currentThread().getName()+" 的循环变量i的值"+i);
-
-            if(i==20)
-
-            {
-
+            if(i==20) {
                 new Thread(ft,"有返回值的线程").start();
-
             }
-
         }
-
-        try
-
-        {
-
+        try{
             System.out.println("子线程的返回值："+ft.get());
-
-        } catch (InterruptedException e)
-
-        {
-
+        } catch (InterruptedException e){
             e.printStackTrace();
-
-        } catch (ExecutionException e)
-
-        {
-
+        } catch (ExecutionException e){
             e.printStackTrace();
-
         }
-
     }
 
     @Override
-
-    public Integer call() throws Exception
-
-    {
-
+    public Integer call() throws Exception {
         int i = 0;
-
-        for(;i<100;i++)
-
-        {
-
+        for(;i<100;i++) {
             System.out.println(Thread.currentThread().getName()+" "+i);
-
         }
-
         return i;
-
     }
-
 }
-|
+```
 
 [https://www.cnblogs.com/wxw7blog/p/7727510.html](https://www.cnblogs.com/wxw7blog/p/7727510.html)
 
@@ -963,76 +670,50 @@ newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯�
 
 ## 请使用内部类实现线程设计4个线程，其中两个线程每次对j增加1，另外两个线程对j每次减少1。
 
+```java 
 public class ThreadTest1{
 
     private int j;
-
     public static void main(String args[]){
 
         ThreadTest1 tt=new ThreadTest1();
-
         Inc inc=tt.new Inc();
-
         Dec dec=tt.new Dec();
 
         for(int i=0;i<2;i++){
-
             Thread t=new Thread(inc);
-
             t.start();
-
             t=new Thread(dec);
-
             t.start();
-
         }
-
 }
 
 private synchronized void inc(){
-
     j++;
-
     System.out.println(Thread.currentThread().getName()+"-inc:"+j);
-
 }
 
 private synchronized void dec(){
-
     j--;
-
     System.out.println(Thread.currentThread().getName()+"-dec:"+j);
-
 }
 
 class Inc implements Runnable{
-
     public void run(){
-
         for(int i=0;i<100;i++){
-
             inc();
-
         }
-
     }
-
 }
 
 class Dec implements Runnable{
-
     public void run(){
-
         for(int i=0;i<100;i++){
-
             dec();
-
         }
-
     }
-
 }
-
 }
+```
 
 [1Java-e-高级特性1-多线程](evernote:///view/23580777/s24/5181158e-8a66-4787-8335-2109ba5c5eed/5181158e-8a66-4787-8335-2109ba5c5eed/)

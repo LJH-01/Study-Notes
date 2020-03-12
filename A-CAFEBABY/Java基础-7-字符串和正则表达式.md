@@ -40,7 +40,7 @@ Java从JDK1.4开始包含了一个支持正则表达式的包 java.util.regex. �
 
 二、String类的支持
 
-Java中的String类提供了支持正则表达式操作的方法，包括：matches()、replaceAll()、replaceFirst()、split()。
+Java中的String类提供了支持正则表达式操作的方法，包括：matches()、replaceAll()、replaceFirst()、split()。find();
 
 ---
 

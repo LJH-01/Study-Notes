@@ -1,26 +1,22 @@
 # java基础知识
 
 ## JDK和JRE
-1. JRE -- _java_ runtime environment
-JRE指java运行环境。光有JVM还不能完成class的执行，因为在解释class的时候,JVM需要调用解释所需要的类库lib。
-在JDK的安装目录里你可以找到jre目录，里面有两个文件夹bin和lib,在这里可以认为bin里的就是jvm，lib中则是jvm工作所需要的类库，而jvm和 lib和起来就称为jre。所以，在你写完java程序编译成.class之后，你可以把这个.class文件和jre一起打包发给朋友，这样你的朋友就可以运行你写程序了。（jre里有运行.class的java.exe）
-2. JDK -- java development kit
-JDK是java开发工具包.安装目录下面有六个文件夹,一个src类库源码压缩包和其他几个声明文件。其中，真正在运行java时起作用的是以下四个文件夹：bin、include、lib、jre。现在我们可以看出这样一个关系，JDK包含JRE，而JRE包含JVM。bin: 最主要的是编译器(javac.exe)include:java和JVM交互用的头文件lib：类库jre:java运行环境（注意：这里的bin、lib文件夹和jre里的bin、lib是不同的）总的来说JDK是用于java程序的开发,而jre则是只能运行class而没有编译的功能。
-eclipse、idea等其他IDE有自己的编译器而不是用JDK bin目录中自带的，所以在安装时他们只要求选中jre路径就ok。
+1. JRE -- _java_ runtime environment----------JDK -- java development kit
+    JDK是java开发工具包.安装目录下的几个主要的文件夹，真正在运行java时起作用的是以下四个：bin、include、lib、jre。bin: 最主要的是编译器(javac.exe)。lib：类库。include:java和JVM交互用的头文件。jre:java运行环境[包含两个文件夹 /bin; 和/lib 注意：这里的/bin、/lib和 jre里的/bin、/lib不同(/bin里主要是JVM，/lib是JVM的运行时类库)]；因此：JDK包含JRE，而JRE包含JVM。
 
 ## Comparable和Comparator接口的作用以及它们的区别。
-Comparable:表示可被排序的，实现了这个接口，这个类的对象就会自动拥有了可被排序的能力。这个排序被称为类的自然顺序。 这个类的对象的列表可以被Collections.sort和Arrays.sort来执行排序。同时这个类的实例具备作为sorted map的key和sorted set的元素的资格。
+Comparable是一个接口，实现了这个接口，这个类的对象就会自动拥有了可被排序的能力。可以看做是内部比较器，这个类的对象的列表可以被Collections.sort和Arrays.sort来执行排序。同时这个类的实例具备作为sorted map的key和sorted set的元素的资格。该接口只有一个抽象方法compareTo，用于比较当前元素a与指定元素b，结果为int值，如果a > b，int>0；如果a=b，int=0；如果a<b，int<0。
+
 ```
 public interface Comparable<T> {
    public int compareTo(T o);
 }
 ```
-该接口只有一个抽象方法compareTo，这个方法主要就是为了定义我们的类所要排序的方式。compareTo方法用于比较当前元素a与指定元素b，结果为int值，如果a > b，int>0；如果a=b，int=0；如果a<b，int<0。
-Comparator:中文译为比较器，它可以作为一个参数传递到Collections.sort和Arrays.sort方法来指定某个类对象的排序方式。同时它也能为sorted set和sorted map指定排序方式。 推荐实现的比较器类同时实现java.io.Serializable接口，以拥有序列化能力，因为它可能会被用作序列化的数据结构（TreeSet、TreeMap）的排序方法。
+Comparator:接口，比较器，它可以作为一个参数传递到Collections.sort和Arrays.sort方法来指定某个类对象的排序方式。同时它也能为sorted set和sorted map指定排序方式。 推荐实现的比较器类同时实现java.io.Serializable接口，以拥有序列化能力，因为它可能会被用作序列化的数据结构（TreeSet、TreeMap）的排序方法。
 
 比较：
 
-Comparable可以看做是内部比较器，Comparator可以看做是外部比较器。一个类可以通过实现Comparable接口来自带有序性，也可以通过额外指定Comparator来附加有序性。使用实现Comparable只需要实现compareTo方法，实现Comparator需要实现compare方法，同时一般要保证和equals方法的比较结果一致。Comparator与Comparable同时存在的情况下，前者优先级高
+Comparable 可以看作内部比较器，Comparator可以看做是外部比较器。一个类可以通过实现Comparable接口来自带有序性，也可以通过额外指定Comparator来附加有序性。使用实现Comparable只需要实现compareTo方法，实现Comparator需要实现compare方法，同时一般要保证和equals方法的比较结果一致。Comparator与Comparable同时存在的情况下，前者优先级高
 
 ---
 
@@ -38,19 +34,17 @@ Java和JavaScript的比较
 
 **Array和ArrayList**
 
-1.大小长度
+1. 大小长度
 
-Array大小是固定的，ArrayList的大小是动态变化的。
+	Array大小是固定的，ArrayList的大小是动态变化的。ArrayList可以看成长度可以自动扩充的Array；
 
-ArrayList可以看成长度可以自动扩充的Array；
+2. 包含的内容
 
-2.包含的内容
+	Array可以包含基本类型和对象类型，ArrayList只能包含对象类型。
 
-Array可以包含基本类型和对象类型，ArrayList只能包含对象类型。
+3. 操作方法
 
-3.操作方法
-
-对数组的一些基本操作，像排序、搜索与比较等是很常见的。因此在Java中提供了Arrays类协助这几个操作：sort(),binarySearch(),equals(),fill(),asList().
+	对数组的一些基本操作，像排序、搜索与比较等是很常见的。因此在Java中提供了Arrays类协助这几个操作：sort(),binarySearch(),equals(),fill(),asList().
 
 ////Integer[] a = {1,2,3,4};List list = Arrays.asList(a); 这里的数组不能是基本数据类型。
 
@@ -98,7 +92,7 @@ Java SE 8的新特性。
 
 1. 对于==，如果作用于基本数据类型的变量，则直接比较其存储的 “值”是否相等；如果作用于引用类型的变量，则比较的是所指向的对象的地址
 
-2. 对于equals方法，注意：equals方法不能作用于基本数据类型的变量如果没有对equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址；诸如String、Date、Ingeger、Double等类对equals方法进行了重写的话，比较的是所指向的对象的内容。
+2. 对于equals方法，注意：equals方法不能作用于基本数据类型的变量如果没有对equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址；诸如String、Date、Integer、Double等类对equals方法进行了重写的话，比较的是所指向的对象的内容。
 
 ---
 
@@ -108,7 +102,7 @@ final
 
 final修饰类：表明这个类不能被继承，（表明该类永远不希望被变动）final类中的成员方法会被隐式的指定为final方法，final类中的成员变量可以根据需要指定为final
 
-final修饰方法：把方法锁定，不能重写，以防任何继承类修改它的含义，只有在明确禁止覆盖时才使用final方法
+final修饰方法：**把方法锁定，不能重写**，以防任何继承类修改它的含义，只有在明确禁止覆盖时才使用final方法
 
 final 和private ：类中所有private方法都隐式地指定为是final的。由于无法取用也就无法覆盖他，可以对private方法加final关键字段并没有什么额外意义。
 
@@ -130,9 +124,9 @@ static方法一般称作静态方法，由于静态方法不依赖于任何对�
 
 static变量也称作静态变量，静态变量被所有的对象所共享，在内存中只有一个副本，它当且仅当在类初次加载时会被初始化。而非静态变量是对象所拥有的，在创建对象的时候被初始化，存在多个副本，各个对象拥有的副本互不影响。static成员变量的初始化顺序按照定义的顺序进行初始化。
 
-（3）static代码块
+（3）static代码块-------在类加载的时候执行。
 
-static关键字还有一个比较关键的作用就是 用来形成静态代码块以优化程序性能。static块可以置于类中的任何地方，类中可以有多个static块。在类初次被加载的时候，会按照static块的顺序来执行每个static块，并且只会执行一次。执行时机先于构造方法类加载的时候，需要那个类去加载哪个类，类加载过程中按照静态块的顺序执行静态块。生成对象的时候先初始化父类的成员变量，然后调用父类的构造方法，然后初始化自己的成员变量，然后调用自己的构造方法。存储位置static变量存储在方法区的静态常量池中
+static关键字还有一个比较关键的作用就是 用来形成静态代码块以优化程序性能。static块可以置于类中的任何地方，类中可以有多个static块。在类初次被加载的时候，会按照static块的顺序来执行每个static块，并且只会执行一次。执行时机先于构造方法，类加载的时候，需要那个类去加载哪个类，类加载过程中按照静态块的顺序执行静态块。生成对象的时候先初始化父类的成员变量，然后调用父类的构造方法，然后初始化自己的成员变量，然后调用自己的构造方法。存储位置static变量存储在方法区的静态常量池中。
 
 ---
 
@@ -162,7 +156,7 @@ java 构造方法：
 
 按位与&，按位或|，按位取反~，按位异或^（不同为1） 
 
-<<X有符号左移操作符，向左移动X位，在低位补0，对于正数来说，相当于乘2操作，负数不太一样。
+<<X有符号左移操作符，向左移动X位，在低位补0，在不溢出的时候相当于乘2；
 
 >>X有符号右移，整数在高位补0，负数在高位补1.
 
