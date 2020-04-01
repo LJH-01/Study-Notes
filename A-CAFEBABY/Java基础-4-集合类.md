@@ -1,5 +1,11 @@
 # Java基础-4-集合类
 
+JDK1.8中对ConcurrenHashMap做的修改
+
+https://www.jianshu.com/p/d10256f0ebea
+
+
+
 接口java.util.Map;的四个实现类
 
 HashMap/Hashtable /LinkedHashMap /TreeMap。
@@ -23,7 +29,7 @@ public class CollectionFrameWork {
         HashMap<String,Integer> hashMap = new HashMap<>();
         Hashtable<String,Integer> hashtable = new Hashtable<>();
         LinkedHashMap<String,Integer> linkedHashMap = new LinkedHashMap<>();
-        // 默认生序，改成降序。
+        // 默认升序，改成降序。
         TreeMap<String,Integer> treeMap = new TreeMap<>(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {

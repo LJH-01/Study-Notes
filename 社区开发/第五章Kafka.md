@@ -104,7 +104,7 @@ class Consumer implements Runnable{
 
 项目中主要用消息系统
 
-### kafuka 安装
+### kafka 安装
 
 1. 下载安装包，解压
 

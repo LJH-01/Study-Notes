@@ -1,12 +1,16 @@
 # Spring MVC
 
 * 三层架构
+	
 	* 表现层、业务层、数据访问层
 * MVC 
-		* Model：模型层
-		* View：视图层
-		* Controller：控制层
+
+   * Model：模型层
+
+   * View：视图层
+   * Controller：控制层
 * 核心组件
+	
 	* 前端控制器：DispatcherServlevt
 
 <img src="/home/tqr/Study-Notes/社区开发/第一章/image/2020-02-05 17-46-35 的屏幕截图.png" alt="2020-02-05 17-46-35 的屏幕截图" style="zoom:50%;" />

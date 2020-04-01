@@ -717,3 +717,13 @@ class Dec implements Runnable{
 ```
 
 [1Java-e-高级特性1-多线程](evernote:///view/23580777/s24/5181158e-8a66-4787-8335-2109ba5c5eed/5181158e-8a66-4787-8335-2109ba5c5eed/)
+
+ThreadPoolExecutor的重要参数
+
+1. corePoolSize：核心线程数.
+2. maxPoolSize：最大线程数
+3. keepAliveTime：线程空闲时间
+4. TimeUnit :时间单位
+5. BlockingQueue ：阻塞队列
+6. ThreadFactory :线程工厂
+7. Handler  : 任务拒绝策略。
