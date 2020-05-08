@@ -59,23 +59,25 @@
 ### 2.4管理的是修改
 >git比其他版本控制系统的优秀之处就在于git跟踪的是文件的修改而不是文见本身，修改就是值文件的变动，如：第几行删除了某个字符等    
 >每次 `git add`相当于是记录了一次修改，这样带来一个问题，就是每次我们修改完如果不add git就不会记录，某些场景下，例如：    
-> 第一次修改 -> git add -> 第二次修改 -> git commit 则第二次修改的内容不会被提交    
+>第一次修改 -> git add -> 第二次修改 -> git commit 则第二次修改的内容不会被提交    
 >第一次修改 -> git add -> 第二次修改 -> git add -> git commit  这样相当于在提交前将两次add 合并然后提交了。会被记录。   
-### 2.5撤销修改   
-1. `git checkout --filename.txt` 丢弃**工作区**的修改。这里又有两个种情况：   
-    1. 在工作区做了修改但是还没有add到暂存区，这时 checkout一下就没事了
-    2. 在工作区修改了，然后add了一次，又在工作区修改了，这次checkout 只是将在工作区最近的修改丢弃，回到刚才add的状态。
-2. `git reset HEAD filename.txt` 如果把胡话已经add到暂存区了，使用这个命令将 (unstage) 将暂存区的内容失效。注意！这时候只是将暂存区撤销了，工作取得内容还要手动去改，或者用上一步的撤销工作区修改的命令。   
-3. 如果已经commit了，在本地的话还是可以回退版本解决，但是如果推送到了远程仓库那就真的惨了。   
-### 2.6 删除文件  
-1. 删除工作区的文件---这是后版本库里还有，而且git知道了这个变化，版本库和工作区不一致   。
-2. 若真的删除 两个命令`git rm filename.txt`  `git commit` 删除版本库。   
+>
+>### 2.5撤销修改   
+>1. `git checkout --filename.txt` 丢弃**工作区**的修改。这里又有两个种情况：   
+>  1. 在工作区做了修改但是还没有add到暂存区，这时 checkout一下就没事了
+>  2. 在工作区修改了，然后add了一次，又在工作区修改了，这次checkout 只是将在工作区最近的修改丢弃，回到刚才add的状态。
+>2. `git reset HEAD filename.txt` 如果把胡话已经add到暂存区了，使用这个命令将 (unstage) 将暂存区的内容失效。注意！这时候只是将暂存区撤销了，工作取得内容还要手动去改，或者用上一步的撤销工作区修改的命令。   
+>3. 如果已经commit了，在本地的话还是可以回退版本解决，但是如果推送到了远程仓库那就真的惨了。   
+>### 2.6 删除文件  
+>1. 删除工作区的文件---这是后版本库里还有，而且git知道了这个变化，版本库和工作区不一致   。
+>2. 若真的删除 两个命令`git rm filename.txt`  `git commit` 删除版本库。   
 3. 误删了，`git checkout --filename.txt` 撤销工作区修改，从版本库在复制到工作区一份。
 ## 3.远程仓库--- nb1.0   
 >理论准备：本地git仓库和github仓库之间是通过SSH加密传输的所以需要在本地生成自己的SSH 密钥，包含一个公钥个一个私钥。   
 >公钥给github， 私钥自己保存。生成方法和添加步骤如下：    
-### 3.1生成SSH密钥和设置github仓库。  
-1. `ssh-keygen -t rsa -C "myemail@example.com"` 一路回车使用默认值即可。公钥和私钥会保存在用户主目录下 .ssh/  名字是 id_rsa 和 id_rsa.pub。   
+>
+>### 3.1生成SSH密钥和设置github仓库。  
+>1. `ssh-keygen -t rsa -C "myemail@example.com"` 一路回车使用默认值即可。公钥和私钥会保存在用户主目录下 .ssh/  名字是 id_rsa 和 id_rsa.pub。   
 2. “Account settings”-->“SSH Keys”--->“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容,
 GitHub允许你添加多个Key。假定你有若干电脑，只要把每台电脑的Key都添加到GitHub，就可以在每台电脑上往GitHub推送了。   
 ### 3.2添加远程仓库   
@@ -126,7 +128,7 @@ GitHub允许你添加多个Key。假定你有若干电脑，只要把每台电�
 5. 解决冲突再提交，然后合并成功。     
 ![](image/solveConflict.png)
 * `git log --graph` 以图形方式显示分支。  
-#### 往master上merge的时候总会按照dev去更细master。只要别在master上commit，就不会冲突了。
+#### 往master上merge的时候总会按照dev去更新master。只要别在master上commit，就不会冲突了。
 ### 4.3分支管理策略  
 1. master分支应该是非常稳定的，然后创建dev分支，在dev分支上干活。每个人有自己的分支，把自己的分支汇总到dev上，在发布版本的时候才将dev合并到master分支上。
 2. 合并分支时，使用--no-ff 参数，禁用fast forward 合并（丢弃分支信息），可以创建一个新的commit，保留分支信息。有因为它穿件了新的commit 故要加上commit信息，命令为`git merge --no-ff -m "commit information" branchname`   

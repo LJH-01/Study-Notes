@@ -18,7 +18,7 @@ http://www.mybatis.org/spring Spring整合mybatis
 
 ### 核心组件
 
-* SqlSessionFactory: 用于船舰SqlSession的工厂类
+* SqlSessionFactory: 用于创建SqlSession的工厂类
 * SqlSession: MyBatis的核心组件，用于项数据库执行SQL
 * 主配置文件：xml配置文件，可以对MyBatis的底层行为作出详细的配置
 

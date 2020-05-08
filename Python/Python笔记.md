@@ -1,39 +1,10 @@
-# OpenAIgym
-
-## 使用自己的环境：
-
-1. 继承gym.Env，重写一些方法，编写自己的环境
-
-2. 建立一个环境文件夹env,将定义好的环境放入其中，并在该目录下再新建一个文件\_\_init\_\_.py，文件内容如下：
-
-	````python
-	from gym.envs.registration import register
-	
-	register(
-		id = 'env_name-v0' # 环境名,版本号v0必须有
-		entry_point = 'env.myenv:MyEnv' # 文件夹名.文件名:类名
-		# 根据需要定义其他参数
-	)
-	````
-
-3. 使用的时候
-
-	```python
-	env = gym.make('id')
-	env.resert()
-	env.render()
-	env.step()
-	env.render()
-	env.colse()
-	```
-
 ## python \_\_ init\_\_.py 文件的使用
 
 1. 作用
 
 	1. Python中package的标识不能删除
 	2. 定义\_\_all\_\_用来模糊导入
-	3. 编写Python 通常不建议在\_\_init\_\_中编写培养透红模块，保持尽量简单
+	3. 编写Python 通常不建议在\_\_init\_\_中编写python模块，保持尽量简单
 
 2. __init__.py 文件的作用是将文件夹变为一个Python模块,Python 中的每个模块的包中，都有__init__.py 文件。通常__init__.py 文件为空，但是我们还可以为它增加其他的功能。我们在导入一个包时，实际上是导入了它的__init__.py文件。这样我们可以在__init__.py文件中批量导入我们所需要的模块，而不再需要一个一个的导入。
 
@@ -403,3 +374,11 @@ python test.py     ---------- c是false（default）
 因为pydev在运行时会把当前工程的所有文件夹路径都作为包的搜索路径，而命令行默认只是搜索当前路径。
 
 那么在当前文件夹以外的文件自然找不到。
+
+
+
+# [] 表示元组tuple,list()是list--两者的区别
+
+list是可变对象
+
+元组是不可变对象，可以使得代码更加安全---最大的好处是语法的灵活性和便捷性

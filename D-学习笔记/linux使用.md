@@ -18,8 +18,6 @@
 `sudo dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P`
 
 ```
-
-
 sudo apt-get autoremove--删除系统不再使用的孤立软件
 ```
 

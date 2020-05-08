@@ -444,3 +444,12 @@ ALTER TABLE students DROP COLUMN birthday;
 2、InnoDB：支持事务安全的引擎，支持外键、行锁是他的最大特点。如果有大量的update和insert，建议使用InnoDB，特别是针对多个并发和QPS较高的情况。----------适合大量更新和插入。
 
 MyISAM强调性能执行速度比Innodb快，但是不支持事务，Innodb更关注并发安全，如果需要大量的读操作，并发冲突比较少，可以使用MyISAM，如果并发冲突比较多，需要更新update insert，Innodb比较合适。--主要和他们存储的方式不同
+
+## char 和 vchar的区别
+
+在数据库建表的时候一般将String类型建表为char或者varchar，区别在于：
+
+1. char的长度不可变的，varchar的长度可变的。定义一个char[10]和varchar[10],如果存进去‘csdn’,char所占的长度为10，除了字符‘csdn’外，后面跟六个空格，varchar长度变为4，取数据时，char类型要用trim()去掉多余的空格，而varchar不需要。
+2. 两者的存储数据都非unicode的字符数据，char的存储方式是：对英文字符（ASCII）占用1个字节，对一个汉字占用两个字节；而varchar的存储方式是，对每个英文字符占用2个字节，汉字也占用2个字节。
+
+char的存取速度比varchar快，因为长度固定，方便存储与查找；但是char为此付出的是空间的代价，难免会有多余的空格占位符占据空间，是以空间换取时间效率，而varchar以空间效率为首位的。
